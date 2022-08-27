@@ -6,9 +6,11 @@ public class Enemy : MonoBehaviour
 {
     private Transform player;
 
-    [SerializeField] private float hp = 3;
+    public static int enemyCount;
+    [SerializeField] protected float hp = 3;
     [SerializeField] protected float defaultSpeed = 3.5f;
     [SerializeField] protected float hitSpeed = 2.5f;
+    [SerializeField] protected float damage;
     private float curSpeed;
     SpriteRenderer sr;
 
@@ -22,6 +24,11 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
+
+        if(hp <= 0)
+        {
+            PoolManager.Instance.Enqueue(gameObject);
+        }
     }
 
     void Move()
@@ -33,5 +40,13 @@ public class Enemy : MonoBehaviour
             sr.flipX = false;
 
         transform.position = moveDir;
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Sword"))
+        {
+            hp -= damage;
+        }
     }
 }
