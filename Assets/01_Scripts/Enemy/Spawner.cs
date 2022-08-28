@@ -5,21 +5,22 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] List<Transform> spawnPos = new List<Transform>();
+    [Header("spawn prefab")]
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] GameObject boss;
+    //[SerializeField] GameObject boss;
     int randIndex = 0;
     int spawnDelay = 1;
 
     private void Start()
     {
-        StartCoroutine(Spawn());
+        StartCoroutine(SpawnEnemy());
     }
 
     /// <summary>
     /// 생성 함수
     /// </summary>
     /// <returns></returns>
-    IEnumerator Spawn()
+    IEnumerator SpawnEnemy()
     {
         while (true)
         {

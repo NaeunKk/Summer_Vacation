@@ -6,6 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public static float curSpeed;
+    public static int curHp;
+    public static int maxHp;
+    public static float curDamage;
+    public static float point;
+    public int healPotionNum;
     public Transform player;
     public Camera cam;
 
@@ -16,7 +22,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
     }
 
     // Update is called once per frame

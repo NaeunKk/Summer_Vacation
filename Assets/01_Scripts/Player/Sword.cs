@@ -7,17 +7,19 @@ public class Sword : MonoBehaviour
     [SerializeField] private float delay = 0.2f;
     [SerializeField] private int attackCount = 0;
     [SerializeField] Animator anim;
+    Enemy enemy;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        enemy = GetComponent<Enemy>();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(attackCount);
+            //Debug.Log(attackCount);
 
             // AttackAnim();
             if (attackCount == 0)
@@ -46,7 +48,11 @@ public class Sword : MonoBehaviour
         }
     }
 
-    void AttackAnim()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            enemy.hp -= GameManager.curDamage;
+        }
     }
 }

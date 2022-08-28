@@ -3,16 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Sword
+  - Wall
+  - Home
+  - Store
+  - Box
+  - Door
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Village
   - 
   - 
   - 
@@ -41,9 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
+  - name: Furniture
     uniqueID: 2505672853
     locked: 0
-  - name: Furniture
+  - name: Player
     uniqueID: 52680897
     locked: 0
