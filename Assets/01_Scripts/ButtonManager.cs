@@ -6,22 +6,39 @@ public class ButtonManager : MonoBehaviour
 {
     public void BuyHealPotion()
     {
-        if (GameManager.point >= 7)
-            GameManager.instance.healPotionNum++;
+        if (JsonManager.instance.Data.point >= 7)
+        {
+            JsonManager.instance.Data.healPotionNum++;
+            JsonManager.instance.Data.point -= 7;
+            JsonManager.instance.Save();
+        }
     }
 
     public void BuySpeedUp()
     {
-        if (GameManager.point >= 15)
-            GameManager.curSpeed++;
+        if (JsonManager.instance.Data.point >= 15)
+        {
+            JsonManager.instance.Data.curSpeed++;
+            JsonManager.instance.Data.point -= 15;
+            JsonManager.instance.Save();
+        }
     }
     public void BuyDamageUp()
     {
-        if (GameManager.point >= 11)
-            GameManager.curDamage++;
+        if (JsonManager.instance.Data.point >= 12)
+        {
+            JsonManager.instance.Data.curDamage++;
+            JsonManager.instance.Data.point -= 12;
+            JsonManager.instance.Save();
+        }
     }
     public void BuyMaxHp()
     {
-        GameManager.maxHp++;
+        if (JsonManager.instance.Data.point >= 9)
+        {
+            JsonManager.instance.Data.maxHp++;
+            JsonManager.instance.Data.point -= 9;
+            JsonManager.instance.Save();
+        }
     }
 }

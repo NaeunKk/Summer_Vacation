@@ -7,12 +7,10 @@ public class Sword : MonoBehaviour
     [SerializeField] private float delay = 0.2f;
     [SerializeField] private int attackCount = 0;
     [SerializeField] Animator anim;
-    Enemy enemy;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        enemy = GetComponent<Enemy>();
     }
 
     private void Update()
@@ -52,7 +50,7 @@ public class Sword : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            enemy.hp -= GameManager.curDamage;
+            collision.GetComponent<Enemy>().hp -= JsonManager.instance.Data.curDamage;
         }
     }
 }

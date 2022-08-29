@@ -13,11 +13,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float defaultSpeed = 3.5f;
     [SerializeField] protected float hitSpeed = 2.5f;
     [SerializeField] protected float damage;
+    [SerializeField] protected float attackDelay;
     protected float point = 10;
 
     [SerializeField] Vector2 size;
     [SerializeField] LayerMask playerLayer;
     private float curSpeed;
+    private int nextMove;
+    private int prevMove;
     SpriteRenderer sr;
 
     void Start()
@@ -26,7 +29,6 @@ public class Enemy : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         curSpeed = defaultSpeed;
         aiPath= GetComponent<AIPath>();
-
     }
 
     private void OnDrawGizmos()
@@ -39,7 +41,7 @@ public class Enemy : MonoBehaviour
     {
         //Move();
         Collider2D hit = Physics2D.OverlapBox(transform.position, size, 0, playerLayer);
-        Debug.Log(hit);
+        //Debug.Log(hit);
         if(hit != null)
         {
             aiPath.enabled = true;
@@ -57,7 +59,8 @@ public class Enemy : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.point += point;
+        JsonManager.instance.Data.point += point;
+        JsonManager.instance.Save();
     }
 
     void Move()
@@ -73,13 +76,31 @@ public class Enemy : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Sword"))
+        if(collision.gameObject.CompareTag("Player"))
         {
-            hp -= GameManager.curDamage;
+            JsonManager.instance.Data.curHp -= 1;
+            StartCoroutine("Attack");
         }
         if (collision.collider.CompareTag("Wall"))
         {
 
+        }
+    }
+    protected void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            StopCoroutine("Attack");
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(attackDelay);
+            JsonManager.instance.Data.curHp -= damage;
+            JsonManager.instance.Save();
         }
     }
 }

@@ -1,0 +1,8 @@
+﻿{
+    "curSpeed": 3.0,
+    "curHp": 5.0,
+    "maxHp": 5.0,
+    "curDamage": 1.0,
+    "point": 197.0,
+    "healPotionNum": 11
+}

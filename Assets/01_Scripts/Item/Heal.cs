@@ -6,7 +6,7 @@ public class Heal : MonoBehaviour, IItem
 {
     public void Use()
     {
-        GameManager.curHp += 2;
+        JsonManager.instance.Data.curHp += 2;
     }
     
 }

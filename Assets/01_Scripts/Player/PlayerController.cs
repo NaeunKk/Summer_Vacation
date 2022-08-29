@@ -16,15 +16,14 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region hp
     [Header("hp")]
-    [SerializeField] TextMeshProUGUI hpTxt;
+    //[SerializeField] TextMeshProUGUI hpTxt;
     #endregion
     #region damage
     [Header("damage")]
-    
     [SerializeField] float minDamage;
     #endregion
-    [SerializeField] TextMeshProUGUI naeun;
-    [Header("그 외")]
+    //[SerializeField] TextMeshProUGUI naeun;
+    [Header("그 외")] 
     [SerializeField] Animator anim;
     Rigidbody2D rb;
 
@@ -36,24 +35,26 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        GameManager.curHp = GameManager.maxHp;
-        GameManager.curSpeed = minSpeed;
-        GameManager.curDamage = minDamage;
+        JsonManager.instance.Data.maxHp = 5;
+        JsonManager.instance.Data.curHp = JsonManager.instance.Data.maxHp;
+        JsonManager.instance.Data.curSpeed = minSpeed;
+        JsonManager.instance.Data.curDamage = minDamage;
+
+
     }
 
     void Update()
     {
         Move();
-        if(GameManager.curHp > GameManager.maxHp) GameManager.curHp = GameManager.maxHp;
-        hpTxt.text = $"HP : {GameManager.curHp} / {GameManager.maxHp}";
-        naeun.text = $"Potion - {GameManager.instance.healPotionNum}\nDamage - {GameManager.curDamage}\nSpeed - {GameManager.curSpeed}";
+        if(JsonManager.instance.Data.curHp > JsonManager.instance.Data.maxHp) 
+            JsonManager.instance.Data.curHp = JsonManager.instance.Data.maxHp;
     }
 
     private void Move()
     {
         Vector2 moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         moveDir.Normalize();
-        rb.velocity = moveDir * GameManager.curSpeed;
+        rb.velocity = moveDir * JsonManager.instance.Data.curSpeed;
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             anim.SetBool("isMoving", true);
@@ -69,9 +70,10 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        if(GameManager.curSpeed >= 7)
+        if(JsonManager.instance.Data.curSpeed >= 7)
         {
-            GameManager.curSpeed = 7;
+            JsonManager.instance.Data.curSpeed = 7;
         }
     }
+
 }

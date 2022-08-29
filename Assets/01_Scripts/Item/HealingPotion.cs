@@ -13,7 +13,7 @@ public class HealingPotion : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.instance.healPotionNum >= 0)
+        if(JsonManager.instance.Data.healPotionNum >= 0)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
